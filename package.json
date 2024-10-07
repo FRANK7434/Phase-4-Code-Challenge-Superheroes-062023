@@ -1,0 +1,15 @@
+{
+  "name": "code-challenge",
+  "version": "1.0.0",
+  "description": "For this assessment, you'll be working on an API for tracking heroes and their superpowers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/home/sonfransisco-james/Downloads/Phase-4-Code-Challenge-Superheroes-062023/Phase-4-Code-Challenge-Superheroes-062023/code-challenge.bundle"
+  },
+  "author": "",
+  "license": "ISC"
+}
