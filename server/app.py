@@ -1,9 +1,11 @@
-#!/usr/bin/env python3
 
-from flask import Flask, request, jsonify, make_response
+ #!/usr/bin/env python3
+
+from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, Hero, Power, HeroPower
+from sqlalchemy.exc import IntegrityError
 import os
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -37,12 +39,13 @@ class HeroResource(Resource):
     def get(self, hero_id):
         hero = Hero.query.get(hero_id)
         if hero:
-            return jsonify(hero.to_dict(
+            return hero.to_dict(
                 only=('id', 'name', 'super_name', 'hero_powers.id', 'hero_powers.strength', 
                       'hero_powers.hero_id', 'hero_powers.power_id', 
                       'hero_powers.power.id', 'hero_powers.power.name', 
-                      'hero_powers.power.description')))
-        return jsonify({"error": "Hero not found"}), 404
+                      'hero_powers.power.description')
+            ), 200
+        return {"error": "Hero not found"}, 404
 
 
 # Define the Resource for /powers
@@ -58,7 +61,7 @@ class PowerResource(Resource):
         power = Power.query.get(power_id)
         if power:
             return jsonify(power.to_dict(only=('id', 'name', 'description')))
-        return jsonify({"error": "Power not found"}), 404
+        return jsonify({"error": "Power not found"}), 404  # Ensure to return JSON for 404 error
 
     def patch(self, power_id):
         power = Power.query.get(power_id)
